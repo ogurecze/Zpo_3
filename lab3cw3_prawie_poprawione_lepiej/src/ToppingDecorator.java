@@ -14,27 +14,24 @@ public abstract class ToppingDecorator{
     }
 
     public void removeTopping(String toRemove) {
-        if (pizza == null) {
-            System.out.println("Nothing to remove");
-        } else if (pizza.getClass().getName().equals(toRemove)) {
-            ToppingDecorator current = this;
-            ToppingDecorator previous = null;
+        ToppingDecorator current = this;
+        ToppingDecorator previous = null;
 
-            while (current != null) {
-                if (current.getClass().getName().equals(toRemove)) {
-                    if (previous != null) {
-                        previous.pizza = current.pizza;
-                    } else {
-                        this.pizza = current.pizza;
-                    }
-                    return;
+        while (current != null) {
+            if (current.getClass().getName().equals(toRemove)) {
+                if (previous != null) {
+                    previous.pizza = current.pizza;
+                } else {
+                    //System.out.println("why?");
+                    this.pizza = current.pizza; //Nie rozumiem dlaczego to nie działa
                 }
-                previous = current;
-                current = current.getPizza();
+                return;
             }
-        } else {
-            pizza.removeTopping(toRemove);
+            previous = current;
+            current = current.getPizza();
         }
+
+        System.out.println("Topping " + toRemove + " not found");
     }
 
 }
